@@ -5,11 +5,21 @@ function SearchForm({onSearch}) {
 
   const [formData, setFormData] = useState('')
 
+  /**
+   * Updates form input real-time
+   *
+   * Input: event object
+   */
   function onChange(e) {
     e.preventDefault();
     setFormData(e.target.value);
   }
 
+  /**
+   *  Calls passed in parent function and resets formData
+   *
+   *  Input: event object
+   */
   function onSubmit(e) {
     e.preventDefault();
     onSearch(formData);

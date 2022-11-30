@@ -28,10 +28,16 @@ function CompanyList() {
     fetchCompaniesAPI();
   }, []);
 
+  /**
+   *  Calls api method getCompanies and sets state with results that returns
+   *  a filtered list of companies based on input
+   *
+   *  Input: data - str
+   *  Output: None
+   */
   async function onSearch(str) {
     const data = {nameLike: str};
     const companies = await JoblyApi.getCompanies(data)
-    console.log('FILTERED COMPANIES', companies);
     setCompanies(companies);
   }
 

@@ -1,0 +1,29 @@
+nav {
+    height: 50px;
+    background-color: rgba(132, 207, 230, 0.52);
+    display: flex;
+    align-items: center;
+}
+
+.Navigation-left {
+    margin-left: 40px;
+}
+
+.Navigation-right {
+    position: absolute;
+    right: 40px;
+}
+
+.Navigation-Link-Jobly {
+    font-size: x-large;
+    text-decoration: none;
+
+}
+
+.Navigation-Link-Companies {
+    text-decoration: none;
+}
+.Navigation-Link-Jobs {
+    margin-left: 20px;
+    text-decoration: none;
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './HomePage.css';
 /**
  *  Renders home page
  *
@@ -12,10 +12,10 @@ import React from 'react'
 
 function HomePage() {
   console.debug('HomePage');
-  
+
   return (
     <div className="HomePage">
-      <p>HOMEPAGE</p>
+      <h1>Jobly</h1>
     </div>
    );
 }

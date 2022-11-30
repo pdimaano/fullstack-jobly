@@ -4,7 +4,8 @@ import './JobCard.css'
 /**
  *  Renders job card
  *
- *  Props: job: { id, title, salary, equity }
+ *  Props: jobs: [{ id, title, salary, equity,
+ *                  companyHandle(optional), companyName(optional) }, ...]
  *
  *  State: None
  *
@@ -18,6 +19,7 @@ function JobCard({job}) {
   return (
     <div className="JobCard">
       <h3>{job.title}</h3>
+      {job.companyName && <h4>{job.companyName}</h4>}
       {job.salary && <p>Salary: {job.salary}</p>}
       <p>Equity: {job.equity}</p>
     </div>

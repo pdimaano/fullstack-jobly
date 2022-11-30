@@ -4,7 +4,8 @@ import JobCard from './JobCard';
 /**
  *  Renders job cards
  *
- *  Props: jobs: [{ id, title, salary, equity }, ...]
+ *  Props: jobs: [{ id, title, salary, equity,
+ *                  companyHandle(optional), companyName(optional) }, ...]
  *
  *  State: None
  *

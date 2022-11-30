@@ -59,7 +59,18 @@ class JoblyApi {
     return res.companies;
   }
 
-  // obviously, you'll add a lot here ...
+  /** Get all jobs.
+   *  Can provide search filter in query:
+    *  minSalary
+    *  hasEquity (true returns only jobs with equity > 0, other values ignored)
+    *  title (will find case-insensitive, partial matches)
+  */
+
+  static async getJobs(data={}) {
+    let res = await this.request(`jobs/`, data);
+    return res.jobs;
+  }
+
 }
 
 export default JoblyApi;

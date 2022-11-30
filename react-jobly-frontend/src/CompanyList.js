@@ -15,14 +15,14 @@ import SearchForm from './SearchForm';
 
 function CompanyList() {
   console.debug('CompanyList');
-  const [companies, setCompanies] = useState([])
+  const [companies, setCompanies] = useState({isLoaded: false})
 
   console.log('companies: ', companies);
 
   useEffect(function fetchCompanies() {
     async function fetchCompaniesAPI() {
-      const companies = await JoblyApi.getCompanies();
-      setCompanies(companies);
+      const companiesInfo = await JoblyApi.getCompanies();
+      setCompanies({companiesInfo: companiesInfo, isLoaded: true});
     }
 
     fetchCompaniesAPI();
@@ -37,15 +37,19 @@ function CompanyList() {
    */
   async function onSearch(str) {
     const data = {nameLike: str};
-    const companies = await JoblyApi.getCompanies(data)
-    setCompanies(companies);
+    const companiesInfo = await JoblyApi.getCompanies(data)
+    setCompanies({companiesInfo: companiesInfo, isLoaded: true});
+  }
+
+  if (companies.isLoaded === false) {
+    return <i>Loading...</i>
   }
 
   return (
     <div className="CompanyList">
       <SearchForm onSearch={onSearch}/>
 
-      {companies.map(c => (
+      {companies.companiesInfo.map(c => (
         <CompanyCard key={`${c.handle}`} company={c} />
       ))}
     </div>

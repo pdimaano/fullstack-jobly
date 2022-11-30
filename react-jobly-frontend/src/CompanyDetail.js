@@ -17,25 +17,29 @@ import JobCardList from './JobCardList';
 function CompanyDetail() {
   const { handle } = useParams();
   console.log(handle)
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState({isLoaded: false});
 
   useEffect(function fetchCompany() {
     async function fetchCompanyAPI() {
       const companyInfo = await JoblyApi.getCompany(handle.toLowerCase());
-      console.log(companyInfo)
-      setCompany(companyInfo);
+      console.log("COMPANY INFO", companyInfo)
+      setCompany({companyInfo: companyInfo , isLoaded: true});
     }
 
     fetchCompanyAPI();
   }, []);
 
+  if (company.isLoaded === false) {
+    return <i>Loading...</i>
+  }
+
   return (
     <div className="CompanyDetail">
       <div className="CompanyDetail-Info">
-        <h3>{company.name}</h3>
-        <p>{company.description}</p>
+        <h3>{company.companyInfo.name}</h3>
+        <p>{company.companyInfo.description}</p>
       </div>
-      <JobCardList jobs={company.jobs}/>
+      <JobCardList jobs={company.companyInfo.jobs}/>
     </div>
    );
 }

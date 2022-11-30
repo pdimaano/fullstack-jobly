@@ -4,8 +4,14 @@ import './JobCard.css'
 /**
  *  Renders job card
  *
- *  Props: jobs: [{ id, title, salary, equity,
- *                  companyHandle(optional), companyName(optional)}, ...]
+ *  Props: job: {
+ *                id,
+ *                title,
+ *                salary,
+ *                equity,
+ *                companyHandle(optional),
+ *                companyName(optional)
+ *              }
  *
  *  State: None
  *

@@ -8,14 +8,19 @@ import SearchForm from './SearchForm';
  *
  *  Props: None
  *
- *  State: companies: [ { handle, name, description, numEmployees, logoUrl }, ...]
+ *  State: companies: {
+ *            companiesInfo: [
+ *                { handle, name, description, numEmployees, logoUrl },
+ *            ...],
+ *            isLoaded: false
+ *         }
  *
  *  App -> CompanyList -> CompanyCard & SearchForm
  */
 
 function CompanyList() {
   console.debug('CompanyList');
-  const [companies, setCompanies] = useState({isLoaded: false})
+  const [companies, setCompanies] = useState({companiesInfo: null, isLoaded: false})
 
   console.log('companies: ', companies);
 
@@ -35,23 +40,26 @@ function CompanyList() {
    *  Input: data - str
    *  Output: None
    */
-  async function onSearch(str) {
-    const data = {nameLike: str};
-    const companiesInfo = await JoblyApi.getCompanies(data)
+  async function onSearch(searchTerm) {
+    const data = searchTerm && {nameLike: searchTerm};
+    console.log('DATA', data);
+    const companiesInfo = await JoblyApi.getCompanies(data);
     setCompanies({companiesInfo: companiesInfo, isLoaded: true});
   }
 
   if (companies.isLoaded === false) {
-    return <i>Loading...</i>
+    return <i>Loading...</i>;
   }
 
   return (
-    <div className="CompanyList">
+    <div className="CompanyList container">
       <SearchForm onSearch={onSearch}/>
 
-      {companies.companiesInfo.map(c => (
-        <CompanyCard key={`${c.handle}`} company={c} />
-      ))}
+      {companies.companiesInfo.length === 0 ?
+        <p>No Matches Found</p> :
+        companies.companiesInfo.map(c => (
+          <CompanyCard key={`${c.handle}`} company={c} />
+        ))}
     </div>
    );
 }

@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 function SearchForm({onSearch}) {
   console.debug('SearchForm');
 
-  const [formData, setFormData] = useState('')
+  const [formData, setFormData] = useState('');
 
   /**
    * Updates form input
@@ -40,13 +40,16 @@ function SearchForm({onSearch}) {
 
   return (
     <div className="SearchForm">
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          placeholder="Enter a search term..."
-          value={formData}
-        />
-        <button>Submit</button>
+      <form className="form-inline" onSubmit={onSubmit}>
+        <div className="SearchForm-input form-group">
+          <input
+            className="form-inline-plaintext"
+            onChange={onChange}
+            placeholder="Enter a search term..."
+            value={formData}
+          />
+        </div>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   )

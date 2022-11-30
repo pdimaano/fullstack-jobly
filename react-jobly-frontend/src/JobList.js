@@ -8,14 +8,19 @@ import JoblyApi from "./api";
  *
  *  Props: None
  *
- *  State: jobs: [ { id, title, salary, equity, companyHandle, companyName }, ...]
+ *  State: jobs: {
+ *            jobsInfo: [
+ *              { id, title, salary, equity, companyHandle, companyName },
+ *            ...],
+ *            isLoaded: false
+ *         }
  *
  *  App -> JobList -> JobCardList & SearchForm
  */
 
 function JobList() {
   console.debug('JobList');
-  const [jobs, setJobs] = useState({isLoaded: false})
+  const [jobs, setJobs] = useState({jobsInfo: null, isLoaded: false})
 
   console.log('jobs: ', jobs);
 
@@ -39,8 +44,8 @@ function JobList() {
    *  Input: data - str
    *  Output: None
    */
-   async function onSearch(str) {
-    const data = {title: str};
+   async function onSearch(searchTerm) {
+    const data = searchTerm && {title: searchTerm};
     const jobInfo = await JoblyApi.getJobs(data)
     setJobs({jobInfo: jobInfo});
   }
@@ -48,7 +53,10 @@ function JobList() {
   return (
     <div className="JobList">
       <SearchForm onSearch={onSearch}/>
-      <JobCardList jobs={jobs.jobInfo}/>
+      {jobs.jobInfo.length === 0 ?
+        <p>No Matches Found</p> :
+        <JobCardList jobs={jobs.jobInfo}/>
+      }
     </div>
   );
 }

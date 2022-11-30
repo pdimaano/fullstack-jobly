@@ -8,7 +8,7 @@ import JobCardList from './JobCardList';
  *
  *  Props: None
  *
- *  State: company is { handle, name, description, numEmployees, logoUrl, jobs }
+ *  State: company is { companyInfo: {handle, name, description, numEmployees, logoUrl, jobs}, isLoaded: false }
  *   where jobs is [{ id, title, salary, equity }, ...]
  *
  *  App -> CompanyDetail -> JobCardList
@@ -18,7 +18,7 @@ function CompanyDetail() {
   console.debug('CompanyDetail');
 
   const { handle } = useParams();
-  const [company, setCompany] = useState({isLoaded: false});
+  const [company, setCompany] = useState({companyInfo: null, isLoaded: false});
 
   console.log('company: ', company);
 
@@ -30,7 +30,7 @@ function CompanyDetail() {
     }
 
     fetchCompanyAPI();
-  }, []);
+  }, [handle]);
 
   if (company.isLoaded === false) {
     return <i>Loading...</i>

@@ -45,10 +45,17 @@ class JoblyApi {
     return res.company;
   }
 
-  /** Get all companies. */
+  /** Get all companies.
+   * Input: data = Object containing filter params
+   *    {
+   *      minEmployees,
+   *       maxEmployees,
+   *       nameLike (will find case-insensitive, partial matches)
+  *     }
+  */
 
-  static async getCompanies() {
-    let res = await this.request(`companies/`);
+  static async getCompanies(data={}) {
+    let res = await this.request(`companies/`, data);
     return res.companies;
   }
 

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import JoblyApi from './api';
+import CompanyCard from './CompanyCard';
 
 /**
  *  Renders company cards
@@ -11,9 +13,25 @@ import React from 'react'
  */
 
 function CompanyList() {
+  console.debug('CompanyList');
+  const [companies, setCompanies] = useState([])
+
+  console.log('companies: ', companies);
+
+  useEffect(function fetchCompanies() {
+    async function fetchCompaniesAPI() {
+      const companies = await JoblyApi.getCompanies();
+      setCompanies(companies);
+    }
+
+    fetchCompaniesAPI();
+  }, []);
+
   return (
     <div className="CompanyList">
-      <p>CompanyList</p>
+      {companies.map(c => (
+        <CompanyCard key={`${c.handle}`} company={c} />
+      ))}
     </div>
    );
 }

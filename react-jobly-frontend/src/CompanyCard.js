@@ -15,7 +15,7 @@ function CompanyCard({company}) {
   console.debug('CompanyCard');
 
   return (
-    <Link to={`/companies/${company.name}`}>
+    <Link to={`/companies/${company.handle}`}>
       <div className="CompanyCard">
         <div className="CompanyCard-Info">
           <h3>{company.name}</h3>

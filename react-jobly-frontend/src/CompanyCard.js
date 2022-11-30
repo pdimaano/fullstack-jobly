@@ -30,5 +30,3 @@ function CompanyCard({company}) {
 }
 
 export default CompanyCard;
-
-// show name, logo, description

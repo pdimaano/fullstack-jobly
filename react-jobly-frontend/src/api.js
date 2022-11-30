@@ -38,7 +38,13 @@ class JoblyApi {
 
   // Individual API routes
 
-  /** Get details on a company by handle. */
+  /**
+   * Get single company by handle
+   *
+   *   Input: handle - str
+   *   Output: { handle, name, description, numEmployees, logoUrl, jobs }
+   *   where jobs is [{ id, title, salary, equity }, ...]
+   */
 
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
@@ -51,7 +57,8 @@ class JoblyApi {
    *      minEmployees,
    *       maxEmployees,
    *       nameLike (will find case-insensitive, partial matches)
-  *     }
+   *    }
+   * Output: [{ handle, name, description, numEmployees, logoUrl }, ...]
   */
 
   static async getCompanies(data={}) {
@@ -61,9 +68,17 @@ class JoblyApi {
 
   /** Get all jobs.
    *  Can provide search filter in query:
-    *  minSalary
-    *  hasEquity (true returns only jobs with equity > 0, other values ignored)
-    *  title (will find case-insensitive, partial matches)
+   *  minSalary
+   *  hasEquity (true returns only jobs with equity > 0, other values ignored)
+   *  title (will find case-insensitive, partial matches)
+   *
+   *  Input: data = Object containin filter params
+   *    {
+   *      minSalaray,
+   *      hasEquity, (true returns only jobs with equity > 0, other values ignored)
+   *      title, (will find case-insensitive, partial matches)
+   *    }
+    *  Output: [{ id, title, salary, equity, companyHandle, companyName }, ...]
   */
 
   static async getJobs(data={}) {

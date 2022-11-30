@@ -5,11 +5,11 @@ import JobCard from './JobCard';
  *  Renders job cards
  *
  *  Props: jobs: [{ id, title, salary, equity,
- *                  companyHandle(optional), companyName(optional) }, ...]
+ *                  companyHandle(optional), companyName(optional)}, ...]
  *
  *  State: None
  *
- *  App -> CompanyDetail -> JobCardList -> JobCard
+ *  (CompanyDetail, JobList) -> JobCardList -> JobCard
  */
 
 function JobCardList({jobs}) {

@@ -41,8 +41,8 @@ function JobList() {
    */
    async function onSearch(str) {
     const data = {title: str};
-    const jobs = await JoblyApi.getJobs(data)
-    setJobs(jobs);
+    const jobInfo = await JoblyApi.getJobs(data)
+    setJobs({jobInfo: jobInfo});
   }
 
   return (

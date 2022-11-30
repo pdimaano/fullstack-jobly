@@ -11,6 +11,8 @@ import React from 'react'
  */
 
 function HomePage() {
+  console.debug('HomePage');
+  
   return (
     <div className="HomePage">
       <p>HOMEPAGE</p>

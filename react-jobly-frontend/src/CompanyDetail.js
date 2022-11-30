@@ -15,9 +15,12 @@ import JobCardList from './JobCardList';
  */
 
 function CompanyDetail() {
+  console.debug('CompanyDetail');
+
   const { handle } = useParams();
-  console.log(handle)
   const [company, setCompany] = useState({isLoaded: false});
+
+  console.log('company: ', company);
 
   useEffect(function fetchCompany() {
     async function fetchCompanyAPI() {

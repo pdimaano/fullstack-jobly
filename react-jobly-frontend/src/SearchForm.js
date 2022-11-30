@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 
+/**
+ * Renders form
+ *
+ * Props: onSearch - function
+ *
+ * State: formData - string
+ *
+ * Render:
+ *   (CompanyList, JobList) -> SearchForm
+ */
+
 function SearchForm({onSearch}) {
   console.debug('SearchForm');
 
   const [formData, setFormData] = useState('')
 
   /**
-   * Updates form input real-time
+   * Updates form input
    *
    * Input: event object
    */

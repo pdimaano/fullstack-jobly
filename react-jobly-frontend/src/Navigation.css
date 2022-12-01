@@ -1,8 +1,12 @@
 nav {
     height: 50px;
-    background-color: rgba(132, 207, 230, 0.52);
+    background-color: rgba(128, 195, 215, 0.52);
     display: flex;
     align-items: center;
+}
+
+a {
+    color: #1f1fd7;
 }
 
 .Navigation-left {

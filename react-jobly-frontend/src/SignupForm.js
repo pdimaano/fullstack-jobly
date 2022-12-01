@@ -16,11 +16,11 @@ function SignupForm({ onSubmission }) {
   console.debug("SignupForm");
 
   const defaultFormData = {
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    username: "testOne",
+    password: "testword",
+    firstName: "test",
+    lastName: "One",
+    email: "test@testing.com",
   };
 
   const [formData, setFormData] = useState(defaultFormData);
@@ -44,10 +44,15 @@ function SignupForm({ onSubmission }) {
    *
    *  Input: event object
    */
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    onSubmission(formData);
-    setFormData(defaultFormData);
+    try {
+      console.log("IN TRY")
+      await onSubmission(formData);
+      setFormData(defaultFormData);
+    } catch (error) {
+      console.log("ERROR!", error)
+    }
   }
 
   return (
@@ -66,6 +71,7 @@ function SignupForm({ onSubmission }) {
         <input
           name="password"
           className="form-control"
+          type="password"
           value={formData.password}
           onChange={onChange}
         />

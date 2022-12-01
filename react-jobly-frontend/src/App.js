@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
 import RoutesList from "./RoutesList";
+import JoblyApi from "./api";
 
 import userInfoContext from "./userInfoContext";
 
@@ -11,7 +12,7 @@ import userInfoContext from "./userInfoContext";
  *
  *  Props: None
  *
- *  State: None
+ *  State: userInfo object {username, token}
  *
  *  App -> Navigation & RoutesList
  *
@@ -23,12 +24,18 @@ function App() {
 
   console.log('userInfo: ', userInfo);
 
+  async function userSignup(userInfo) {
+    let res = await JoblyApi.userRegister(userInfo);
+    console.log(res);
+    setUserInfo({username: userInfo.username, token: res});
+  }
+
   return (
     <div className="App">
       <userInfoContext.Provider value={userInfo}>
         <BrowserRouter>
           <Navigation />
-          <RoutesList />
+          <RoutesList userSignup={userSignup}/>
         </BrowserRouter>
       </userInfoContext.Provider>
     </div>

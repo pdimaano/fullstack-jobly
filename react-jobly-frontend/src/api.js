@@ -14,18 +14,17 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  // static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+  //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+  //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = "";
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
-        ? data
-        : {};
+    const params = method === "get" ? data : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -59,9 +58,9 @@ class JoblyApi {
    *       nameLike (will find case-insensitive, partial matches)
    *    }
    * Output: [{ handle, name, description, numEmployees, logoUrl }, ...]
-  */
+   */
 
-  static async getCompanies(data={}) {
+  static async getCompanies(data = {}) {
     let res = await this.request(`companies/`, data);
     return res.companies;
   }
@@ -72,20 +71,34 @@ class JoblyApi {
    *  hasEquity (true returns only jobs with equity > 0, other values ignored)
    *  title (will find case-insensitive, partial matches)
    *
-   *  Input: data = Object containin filter params
+   *  Input: data = Object containing filter params
    *    {
-   *      minSalaray,
+   *      minSalary,
    *      hasEquity, (true returns only jobs with equity > 0, other values ignored)
    *      title, (will find case-insensitive, partial matches)
    *    }
-    *  Output: [{ id, title, salary, equity, companyHandle, companyName }, ...]
-  */
+   *  Output: [{ id, title, salary, equity, companyHandle, companyName }, ...]
+   */
 
-  static async getJobs(data={}) {
+  static async getJobs(data = {}) {
     let res = await this.request(`jobs/`, data);
     return res.jobs;
   }
 
+  /** Register new user.
+   *
+   *  Input: data = {username, password, firstName, lastName, email};
+   *
+   *  Output: token
+   */
+
+  static async userRegister(data) {
+    console.log("USER REGISTER")
+    let res = await this.request(`auth/register`, data, "post");
+    console.log(res);
+    this.token = res.token;
+    return this.token;
+  }
 }
 
 export default JoblyApi;

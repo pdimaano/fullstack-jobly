@@ -39,17 +39,17 @@ function SearchForm({onSearch}) {
 
 
   return (
-    <div className="SearchForm">
+    <div className="SearchForm mt-4 d-flex justify-content-center">
       <form className="form-inline" onSubmit={onSubmit}>
-        <div className="SearchForm-input form-group">
+        <div className="SearchForm-input input-group">
           <input
-            className="form-inline-plaintext"
+            className="form-control"
             onChange={onChange}
             placeholder="Enter a search term..."
             value={formData}
           />
+          <button className="btn btn-primary float-right">Submit</button>
         </div>
-        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   )

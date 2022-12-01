@@ -15,7 +15,7 @@ import userInfoContext from './userInfoContext';
 
 function Navigation() {
   const userInfo = useContext(userInfoContext);
-  
+
   return (
     <nav className="Navigation">
       <div className="Navigation-left">
@@ -23,15 +23,29 @@ function Navigation() {
           Jobly
         </NavLink>
       </div>
+      {userInfo.username === null ?
       <div className="Navigation-right">
-
+        <NavLink className="Navigation-Link-Signup" to='/signup' reloadDocument>
+          Signup
+        </NavLink>
+        <NavLink className="Navigation-Link-Login" to='/login' reloadDocument>
+          Login
+        </NavLink>
+      </div> :
+      <div className="Navigation-right">
         <NavLink className="Navigation-Link-Companies" to='/companies' reloadDocument>
           Companies
         </NavLink>
         <NavLink className="Navigation-Link-Jobs" to='/jobs' reloadDocument>
           Jobs
         </NavLink>
-      </div>
+        <NavLink className="Navigation-Link-Profile" to='/profile' reloadDocument>
+          Profile
+        </NavLink>
+        <NavLink className="Navigation-Link-Logout" to='/logout' reloadDocument>
+          Logout {userInfo.username}
+        </NavLink>
+      </div>}
     </nav>
    );
 }

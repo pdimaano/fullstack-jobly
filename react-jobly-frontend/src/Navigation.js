@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import './Navigation.css';
+import userInfoContext from './userInfoContext';
 
 /**
  *  Renders navigation bar
@@ -13,20 +14,23 @@ import './Navigation.css';
  */
 
 function Navigation() {
+  const userInfo = useContext(userInfoContext);
+  
   return (
     <nav className="Navigation">
       <div className="Navigation-left">
-        <Link className="Navigation-Link-Jobly" to='/'>
+        <NavLink className="Navigation-Link-Jobly" to='/' reloadDocument>
           Jobly
-        </Link>
+        </NavLink>
       </div>
       <div className="Navigation-right">
-        <Link className="Navigation-Link-Companies" to='/companies'>
+
+        <NavLink className="Navigation-Link-Companies" to='/companies' reloadDocument>
           Companies
-        </Link>
-        <Link className="Navigation-Link-Jobs" to='/jobs'>
+        </NavLink>
+        <NavLink className="Navigation-Link-Jobs" to='/jobs' reloadDocument>
           Jobs
-        </Link>
+        </NavLink>
       </div>
     </nav>
    );

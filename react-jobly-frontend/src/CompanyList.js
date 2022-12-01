@@ -41,7 +41,7 @@ function CompanyList() {
    *  Output: None
    */
   async function onSearch(searchTerm) {
-    const data = searchTerm && {nameLike: searchTerm};
+    const data = searchTerm && {nameLike: searchTerm.trim()};
     console.log('DATA', data);
     const companiesInfo = await JoblyApi.getCompanies(data);
     setCompanies({companiesInfo: companiesInfo, isLoaded: true});

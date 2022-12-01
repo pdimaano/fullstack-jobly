@@ -24,8 +24,8 @@ function JobCard({job}) {
 
   return (
     <div className="JobCard">
-      <h3>{job.title}</h3>
-      {job.companyName && <h4>{job.companyName}</h4>}
+      <h5>{job.title}</h5>
+      {job.companyName && <h6>{job.companyName}</h6>}
       {job.salary && <p>Salary: {job.salary}</p>}
       {job.equity && <p>Equity: {job.equity}</p>}
     </div>

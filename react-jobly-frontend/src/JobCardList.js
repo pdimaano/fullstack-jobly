@@ -17,7 +17,7 @@ function JobCardList({jobs}) {
   console.log('jobs: ', jobs);
 
   return (
-    <div className="JobCardList">
+    <div className="JobCardList container">
       {jobs.map(j => (
         <JobCard key={`${j.id}`} job={j} />
       ))}

@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
 import RoutesList from "./RoutesList";
 import JoblyApi from "./api";
+import jwt_decode from "jwt-decode";
 
 import userInfoContext from "./userInfoContext";
 
@@ -12,71 +13,84 @@ import userInfoContext from "./userInfoContext";
  *
  *  Props: None
  *
- *  State: userInfo object {username, token}
+ *  State: userInfo object {username, firstName, lastName, email},
+ *         token
  *
  *  App -> Navigation & RoutesList
  *
  */
 
 function App() {
-  console.debug('App');
-  const [userInfo, setUserInfo] = useState({ //TODO: sep token from userInfo use token to get user info
+  console.debug("App");
+  const [userInfo, setUserInfo] = useState({
     username: null,
     firstName: null,
     lastName: null,
     email: null,
-    token: null
   });
+  const [token, setToken] = useState(null);
 
-  //TODO: USE EFFECT TO TRIGGER GETUSER ON TOKEN CHANGE
-  // TODO: npm install jwt-decode (import decode from jwt-decode)
-  // TODO: write logout function
+  useEffect(
+    function getUserInfo() {
+      async function getUserApi() {
+        if (token === null) {
+          setUserInfo({
+            username: null,
+            firstName: null,
+            lastName: null,
+            email: null,
+          });
+        } else {
+          const decoded = jwt_decode(token);
+          console.log(decoded);
+          let userInfo = await JoblyApi.getUser(decoded.username);
+          setUserInfo({
+            username: userInfo.username,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            email: userInfo.email,
+          });
+        }
+      }
+      getUserApi();
+    },
+    [token]
+  );
 
-  console.log('userInfo: ', userInfo);
+  console.log("userInfo: ", userInfo);
 
   async function userSignup(userInfo) {
-    let res = await JoblyApi.userRegister(userInfo); //change res to user
-    console.log('SIGNUP Token: ', res);
-    setUserInfo({
-      username: userInfo.username,
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      email: userInfo.email,
-      token: res
-    });
+    let token = await JoblyApi.userRegister(userInfo);
+    console.log("SIGNUP Token: ", token);
+    setToken(token);
   }
 
   async function userLogin(userInfo) {
     let token = await JoblyApi.userLogin(userInfo);
-    let user = await JoblyApi.getUser(userInfo.username); //TODO: look into token payload for username
-
-    console.log('LOGIN Token: ', token);
-    console.log('USERRRRRR', user);
-    setUserInfo({
-      username: userInfo.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: token
-    });
+    setToken(token);
   }
 
   async function userProfile(userInfo) {
-    let res = await JoblyApi.userProfile(userInfo);
-    console.log('LOGIN Token: ', res);
+    let updatedUser = await JoblyApi.userProfile(userInfo);
+    console.log("LOGIN Token: ", updatedUser);
     setUserInfo({
-      username: res.username,
-      firstName: res.firstName,
-      lastName: res.lastName,
-      email: res.email,
-      token: res
+      username: updatedUser.username,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      email: updatedUser.email,
     });
   }
+
+  function userLogout() {
+    setToken(null);
+    console.log("LOGOUT")
+  }
+
   return (
     <div className="App">
       <userInfoContext.Provider value={userInfo}>
         <BrowserRouter>
-          <Navigation />
+          <Navigation userLogout={userLogout}/>
           <RoutesList
             userSignup={userSignup}
             userLogin={userLogin}
@@ -89,13 +103,3 @@ function App() {
 }
 
 export default App;
-
-
-// User Info
-/*
-  default
-
-  username: null
-  token: null
-
-*/

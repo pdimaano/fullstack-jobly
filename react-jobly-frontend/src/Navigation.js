@@ -6,14 +6,14 @@ import userInfoContext from './userInfoContext';
 /**
  *  Renders navigation bar
  *
- *  Props: None
+ *  Props: userLogout
  *
  *  State: None
  *
  *  App -> Navigation -> Link
  */
 
-function Navigation() {
+function Navigation({userLogout}) {
   const userInfo = useContext(userInfoContext);
 
   return (
@@ -42,7 +42,7 @@ function Navigation() {
         <NavLink className="Navigation-Link-Profile" to='/profile'>
           Profile
         </NavLink>
-        <NavLink className="Navigation-Link-Logout" to='/logout'>
+        <NavLink className="Navigation-Link-Logout" to='/' onClick={userLogout}>
           Logout {userInfo.username}
         </NavLink>
       </div>}

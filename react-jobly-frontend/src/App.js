@@ -141,7 +141,7 @@ function App() {
     console.log("LOGOUT")
   }
 
-  // if (userInfo.loggedIn === false) return (<i>...Loading</i>)
+  if (token && userInfo.loggedIn === false) return (<i>...Loading</i>)
 
   return (
     <div className="App">

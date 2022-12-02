@@ -27,7 +27,7 @@ import userInfoContext from "./userInfoContext";
 function App() {
   console.debug("App");
 
-  const defaultToken = localStorage.getItem("token") || null; //TODO: double check what getItem gives if it can't find
+  const defaultToken = localStorage.getItem("token");
   const [userInfo, setUserInfo] = useState({
     user: {
       username: null,
@@ -61,15 +61,16 @@ function App() {
             const currUser = await JoblyApi.getUser(decoded.username);
             setUserInfo({
               user: {
-                username: currUser.user.username,
-                firstName: currUser.user.firstName,
-                lastName: currUser.user.lastName,
-                email: currUser.user.email
+                username: currUser.username,
+                firstName: currUser.firstName,
+                lastName: currUser.lastName,
+                email: currUser.email
               },
               hasLoaded: true
             });
             localStorage.setItem("token", token);
           } catch (err) {
+            console.log("CATCH ERROR", err)
             setToken(null)
             setUserInfo({
               user: {

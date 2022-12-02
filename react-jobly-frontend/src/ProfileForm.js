@@ -65,8 +65,9 @@ function ProfileForm({ update }) {
   return (
     <form className="ProfileForm container" onSubmit={onSubmit}>
       <div className="mb-3">
-        <label className="form-label">Username</label>
+        <label className="form-label" htmlFor="profile-form-username">Username</label>
         <input
+          id="profile-form-username"
           name="username"
           className="form-control"
           value={formData.username}
@@ -75,8 +76,9 @@ function ProfileForm({ update }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">First Name</label>
+        <label className="form-label" htmlFor="profile-form-firstName">First Name</label>
         <input
+          id="profile-form-firstName"
           name="firstName"
           className="form-control"
           value={formData.firstName}
@@ -84,8 +86,9 @@ function ProfileForm({ update }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Last Name</label>
+        <label className="form-label" htmlFor="profile-form-lastName">Last Name</label>
         <input
+          id="profile-form-lastName"
           name="lastName"
           className="form-control"
           value={formData.lastName}
@@ -93,8 +96,9 @@ function ProfileForm({ update }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Email</label> {/*TODO: add htmlfor or wrap label around input*/}
+        <label className="form-label" htmlFor="profile-form-email">Email</label>
         <input
+          id="profile-form-email"
           name="email"
           className="form-control"
           value={formData.email}

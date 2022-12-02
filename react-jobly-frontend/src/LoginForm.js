@@ -63,8 +63,9 @@ function LoginForm({ login }) {
   return (
     <form className="LoginForm container" onSubmit={onSubmit}>
       <div className="mb-3">
-        <label className="form-label">Username</label>
+        <label className="form-label" htmlFor="login-form-username">Username</label>
         <input
+          id="login-form-username"
           name="username"
           className="form-control"
           value={formData.username}
@@ -72,8 +73,9 @@ function LoginForm({ login }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Password</label>
+        <label className="form-label" htmlFor="login-form-password">Password</label>
         <input
+          id="login-form-password"
           name="password"
           className="form-control"
           type="password"

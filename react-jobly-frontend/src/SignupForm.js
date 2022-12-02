@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Alert from './Alert';
+import Alert from "./Alert";
 import { Navigate, useNavigate } from "react-router-dom";
 // import "./SignupForm.css";
 
@@ -28,9 +28,9 @@ function SignupForm({ signup }) {
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
-  console.log('formData: ', formData, 'error: ', errors);
+  console.log("formData: ", formData, "error: ", errors);
   /**
    * Updates form input
    *
@@ -52,12 +52,12 @@ function SignupForm({ signup }) {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      console.log("IN TRY")
+      console.log("IN TRY");
       await signup(formData);
       setFormData(defaultFormData);
       navigate("/");
     } catch (error) {
-      console.log("ERROR!", error)
+      console.log("ERROR!", error);
       setErrors(error);
     }
   }
@@ -65,8 +65,11 @@ function SignupForm({ signup }) {
   return (
     <form className="SignupForm container" onSubmit={onSubmit}>
       <div className="mb-3">
-        <label className="form-label">Username</label>
+        <label className="form-label" htmlFor="signup-form-username">
+          Username
+        </label>
         <input
+          id="signup-form-username"
           name="username"
           className="form-control"
           value={formData.username}
@@ -74,8 +77,11 @@ function SignupForm({ signup }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Password</label>
+        <label className="form-label" htmlFor="signup-form-password">
+          Password
+        </label>
         <input
+          id="signup-form-password"
           name="password"
           className="form-control"
           type="password"
@@ -84,8 +90,11 @@ function SignupForm({ signup }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">First Name</label>
+        <label className="form-label" htmlFor="signup-form-firstName">
+          First Name
+        </label>
         <input
+          id="signup-form-firstName"
           name="firstName"
           className="form-control"
           value={formData.firstName}
@@ -93,8 +102,11 @@ function SignupForm({ signup }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Last Name</label>
+        <label className="form-label" htmlFor="signup-form-lastName">
+          Last Name
+        </label>
         <input
+          id="signup-form-lastName"
           name="lastName"
           className="form-control"
           value={formData.lastName}
@@ -102,21 +114,20 @@ function SignupForm({ signup }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Email</label>
+        <label className="form-label" htmlFor="signup-form-email">
+          Email
+        </label>
         <input
+          id="signup-form-email"
           name="email"
           className="form-control"
           value={formData.email}
           onChange={onChange}
         />
       </div>
-      {
-        errors.length !== 0 ?
-        errors.map((e, idx) => (
-          <Alert key={idx} message={e} type="danger"/>
-        )) :
-        null
-      }
+      {errors.length !== 0
+        ? errors.map((e, idx) => <Alert key={idx} message={e} type="danger" />)
+        : null}
       <button className="btn btn-primary">Submit</button>
     </form>
   );

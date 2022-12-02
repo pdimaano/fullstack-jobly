@@ -27,7 +27,7 @@ import userInfoContext from "./userInfoContext";
 function App() {
   console.debug("App");
 
-  const defaultToken = localStorage.getItem("token") || null;
+  const defaultToken = localStorage.getItem("token") || null; //TODO: double check what getItem gives if it can't find
   const [userInfo, setUserInfo] = useState({
     user: {
       username: null,
@@ -51,14 +51,14 @@ function App() {
               lastName: null,
               email: null
             },
-            loggedIn: false
+            loggedIn: false //TODO: hasLoaded
           });
         } else {
           JoblyApi.token = token;
           const decoded = jwt_decode(token);
           console.log("Use EFFECT decoded: ", decoded);
           try {
-            userInfo.user = await JoblyApi.getUser(decoded.username);
+            userInfo.user = await JoblyApi.getUser(decoded.username); //TODO: change userInfo.user to a variable
             setUserInfo({
               user: {
                 username: userInfo.user.username,
@@ -147,7 +147,7 @@ function App() {
     console.log("LOGOUT")
   }
 
-  if (token && userInfo.loggedIn === false) return (<i>...Loading</i>)
+  if (token && userInfo.loggedIn === false) return (<i>...Loading</i>) //TODO: check for hasLoaded === false (default)
 
   return (
     <div className="App">

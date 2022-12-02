@@ -6,10 +6,11 @@ import userInfoContext from './userInfoContext';
 /**
  * Renders form
  *
- * Props: onSubmission - function
+ * Props: update - function
  *
  * State: formData - string
  *        error - Array
+ *        success - Boolean
  *
  * Render:
  *   App -> ProfileForm
@@ -92,7 +93,7 @@ function ProfileForm({ update }) {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Email</label>
+        <label className="form-label">Email</label> {/*TODO: add htmlfor or wrap label around input*/}
         <input
           name="email"
           className="form-control"
@@ -101,10 +102,11 @@ function ProfileForm({ update }) {
         />
       </div>
       {
-        errors.length !== 0 ?
-        errors.map((e, idx) => (
-          <Alert key={idx} message={e} type="danger" />
-        )) : null
+        errors.length !== 0
+          ? errors.map((e, idx) => (
+              <Alert key={idx} message={e} type="danger" />
+            ))
+          : null
       }
       {success && <Alert message={"Updated successfully!"} type="success"/>}
       <button className="btn btn-primary">Submit</button>

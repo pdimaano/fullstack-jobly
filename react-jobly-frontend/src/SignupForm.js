@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Alert from './Alert';
+import { Navigate, useNavigate } from "react-router-dom";
 // import "./SignupForm.css";
 
 /**
@@ -16,6 +17,7 @@ import Alert from './Alert';
 
 function SignupForm({ onSubmission }) {
   console.debug("SignupForm");
+  const navigate = useNavigate();
 
   const defaultFormData = {
     username: "testOne",
@@ -54,6 +56,7 @@ function SignupForm({ onSubmission }) {
       console.log("IN TRY")
       await onSubmission(formData);
       setFormData(defaultFormData);
+      navigate("/");
     } catch (error) {
       console.log("ERROR!", error)
       setErrors(error);
@@ -111,7 +114,7 @@ function SignupForm({ onSubmission }) {
       {
         errors.length !== 0 ?
         errors.map((e, idx) => (
-          <Alert key={idx} error={e} />
+          <Alert key={idx} message={e} type="danger"/>
         )) :
         null
       }

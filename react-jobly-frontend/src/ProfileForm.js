@@ -19,7 +19,7 @@ function ProfileForm({ onSubmission }) {
   console.debug("ProfileForm");
   const userInfo = useContext(userInfoContext);
   console.log('USERINFO', userInfo);
-  
+
   const defaultFormData = {
     username: userInfo.username,
     firstName: userInfo.firstName,
@@ -28,7 +28,8 @@ function ProfileForm({ onSubmission }) {
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
+  const [success, setSuccess] = useState(false);
 
   console.log('formData: ', formData, 'error: ', errors);
   /**
@@ -55,7 +56,7 @@ function ProfileForm({ onSubmission }) {
     try {
       console.log("IN TRY")
       await onSubmission(formData);
-      setFormData(defaultFormData);
+      setSuccess(true);
     } catch (error) {
       console.log("ERROR!", error)
       setErrors(error);
@@ -71,6 +72,7 @@ function ProfileForm({ onSubmission }) {
           className="form-control"
           value={formData.username}
           onChange={onChange}
+          disabled
         />
       </div>
       <div className="mb-3">
@@ -103,10 +105,10 @@ function ProfileForm({ onSubmission }) {
       {
         errors.length !== 0 ?
         errors.map((e, idx) => (
-          <Alert key={idx} error={e} />
-        )) :
-        null
+          <Alert key={idx} message={e} type="danger" />
+        )) : null
       }
+      {success && <Alert message={"Updated successfully!"} type="success"/>}
       <button className="btn btn-primary">Submit</button>
     </form>
   );

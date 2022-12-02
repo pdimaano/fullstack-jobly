@@ -1,11 +1,21 @@
 import React from 'react';
 
-function Alert({error}) {
+/**
+ *  Renders alert message
+ *
+ *  Props: message, type (string)
+ *
+ *  State: None
+ *
+ *  ProfileForm, SignupForm, LoginForm -> Alert
+ */
+
+function Alert({message, type}) {
   console.debug('Alert');
 
   return (
-    <div className="Alert alert alert-danger" role="alert">
-      {error}
+    <div className={`Alert alert alert-${type}`} role="alert">
+      {message}
     </div>
   )
 }

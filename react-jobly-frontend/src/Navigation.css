@@ -16,6 +16,7 @@ a {
 .Navigation-right {
     position: absolute;
     right: 40px;
+    z-index: 1000;
 }
 
 .Navigation-Link-Jobly {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Alert from './Alert';
+import Alert from "./Alert";
+import { useNavigate } from "react-router-dom";
 // import "./LoginForm.css";
 
 /**
@@ -14,18 +15,19 @@ import Alert from './Alert';
  *   App -> LoginForm
  */
 
-function LoginForm({ onSubmission }) { //update function name to userLogin
+function LoginForm({ onSubmission }) {
+  //update function name to userLogin
   console.debug("LoginForm");
-
+  const navigate = useNavigate();
   const defaultFormData = {
     username: "testOne",
-    password: "testword"
+    password: "testword",
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
-  console.log('formData: ', formData, 'error: ', errors);
+  console.log("formData: ", formData, "error: ", errors);
 
   /**
    * Updates form input
@@ -49,11 +51,12 @@ function LoginForm({ onSubmission }) { //update function name to userLogin
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      console.log("IN TRY")
+      console.log("IN TRY");
       await onSubmission(formData);
       setFormData(defaultFormData);
+      navigate("/");
     } catch (error) {
-      console.log("ERROR!", error)
+      console.log("ERROR!", error);
       setErrors(error);
     }
   }
@@ -79,13 +82,9 @@ function LoginForm({ onSubmission }) { //update function name to userLogin
           onChange={onChange}
         />
       </div>
-      {
-        errors.length !== 0 ?
-        errors.map((e, idx) => (
-          <Alert key={idx} error={e} />
-        )) :
-        null
-      }
+      {errors.length !== 0
+        ? errors.map((e, idx) => <Alert key={idx} message={e} type="danger"/>)
+        : null}
       <button className="btn btn-primary">Submit</button>
     </form>
   );

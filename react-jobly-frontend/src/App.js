@@ -23,9 +23,11 @@ import userInfoContext from "./userInfoContext";
  *
  */
 
+
 function App() {
   console.debug("App");
 
+  const defaultToken = localStorage.getItem("token") || null;
   const [userInfo, setUserInfo] = useState({
     user: {
       username: null,
@@ -35,7 +37,8 @@ function App() {
     },
     loggedIn: false
   });
-  const [token, setToken] = useState(null);
+
+  const [token, setToken] = useState(defaultToken);
 
   useEffect(
     function getUserInfo() {
@@ -51,8 +54,9 @@ function App() {
             loggedIn: false
           });
         } else {
+          JoblyApi.token = token;
           const decoded = jwt_decode(token);
-          console.log(decoded);
+          console.log("Use EFFECT decoded: ", decoded);
           try {
             userInfo.user = await JoblyApi.getUser(decoded.username);
             setUserInfo({
@@ -64,6 +68,7 @@ function App() {
               },
               loggedIn: true
             });
+            localStorage.setItem("token", token);
           } catch (err) {
             setToken(null)
             setUserInfo({
@@ -83,7 +88,7 @@ function App() {
     [token]
   );
 
-  console.log("userInfo: ", userInfo);
+  console.log("userInfo: ", userInfo, "token: ", token);
 
   /** Signs user up and sets token
    *  Input: userInfo - Object
@@ -125,7 +130,7 @@ function App() {
   }
 
   /** Logs current user out
-   * sets token and userinfo to null
+   * sets token and userinfo to null and clears localstorage
    */
   function userLogout() {
     setToken(null);
@@ -138,6 +143,7 @@ function App() {
       },
       loggedIn: false
     });
+    localStorage.removeItem("token");
     console.log("LOGOUT")
   }
 

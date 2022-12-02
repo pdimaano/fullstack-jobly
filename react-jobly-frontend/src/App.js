@@ -22,7 +22,7 @@ import userInfoContext from "./userInfoContext";
 
 function App() {
   console.debug("App");
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState({ //TODO: think about adding isLoading state
     username: null,
     firstName: null,
     lastName: null,
@@ -33,14 +33,14 @@ function App() {
   useEffect(
     function getUserInfo() {
       async function getUserApi() {
-        if (token === null) {
+        if (token === null) { // check for token not null
           setUserInfo({
             username: null,
             firstName: null,
             lastName: null,
             email: null,
           });
-        } else {
+        } else { // put a try/catch
           const decoded = jwt_decode(token);
           console.log(decoded);
           let userInfo = await JoblyApi.getUser(decoded.username);
@@ -59,6 +59,7 @@ function App() {
 
   console.log("userInfo: ", userInfo);
 
+  //TODO: NEED DOCSTRINGS
   async function userSignup(userInfo) {
     let token = await JoblyApi.userRegister(userInfo);
     console.log("SIGNUP Token: ", token);
@@ -70,9 +71,9 @@ function App() {
     setToken(token);
   }
 
-  async function userProfile(userInfo) {
-    let updatedUser = await JoblyApi.userProfile(userInfo);
-    console.log("LOGIN Token: ", updatedUser);
+  async function userProfile(userInfo) { //TODO: change userProfile name to userUpdate or something
+    let updatedUser = await JoblyApi.userProfile(userInfo); //TODO: same
+    console.log("LOGIN Token: ", updatedUser); //TODO: fix console log string
     setUserInfo({
       username: updatedUser.username,
       firstName: updatedUser.firstName,
@@ -83,6 +84,7 @@ function App() {
 
   function userLogout() {
     setToken(null);
+    //TODO: set currentUser to null here
     console.log("LOGOUT")
   }
 

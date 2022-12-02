@@ -16,7 +16,7 @@ function HomePage() {
   const userInfo = useContext(userInfoContext);
   console.debug("HomePage");
 
-  //TODO: Fix companies link from home page
+//TODO: add signup/login buttons
 
   return (
     <div className="HomePage">

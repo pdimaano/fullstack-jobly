@@ -15,11 +15,11 @@ import userInfoContext from './userInfoContext';
  *   App -> ProfileForm
  */
 
-function ProfileForm({ onSubmission }) {
+function ProfileForm({ onSubmission }) { //TODO: change name
   console.debug("ProfileForm");
-  const userInfo = useContext(userInfoContext);
   console.log('USERINFO', userInfo);
 
+  const userInfo = useContext(userInfoContext);
   const defaultFormData = {
     username: userInfo.username,
     firstName: userInfo.firstName,
@@ -38,7 +38,6 @@ function ProfileForm({ onSubmission }) {
    * Input: event object
    */
   function onChange(e) {
-    e.preventDefault();
     const { name, value } = e.target;
     setFormData((fData) => ({
       ...fData,

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
  *   App -> LoginForm
  */
 
-function LoginForm({ onSubmission }) {
+function LoginForm({ onSubmission }) { //TODO: change name to login
   //update function name to userLogin
   console.debug("LoginForm");
   const navigate = useNavigate();
@@ -35,7 +35,6 @@ function LoginForm({ onSubmission }) {
    * Input: event object
    */
   function onChange(e) {
-    e.preventDefault();
     const { name, value } = e.target;
     setFormData((fData) => ({
       ...fData,

@@ -25,7 +25,7 @@ function Navigation({userLogout}) {
       </div>
 
       {
-        !userInfo.loggedIn //TODO: just check for current user
+        !userInfo.user.username
           ? <div className="Navigation-right">
               <NavLink className="Navigation-Link-Signup" to='/signup'>
                 Signup

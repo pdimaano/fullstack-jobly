@@ -34,9 +34,9 @@ function HomePage() {
     <div className="HomePage">
       <div>
         <h1>Jobly</h1>
-        {userInfo.loggedIn && <p>Welcome {userInfo.user.firstName}! </p>}
+        {userInfo.user.username && <p>Welcome {userInfo.user.firstName}! </p>}
         <p>Find your dream job on a Korean beach!</p>
-        {!userInfo.loggedIn &&
+        {!userInfo.user.username &&
         <div className="HomePage-buttons">
           <button onClick={signupClick} className="btn btn-primary">Sign Up</button>
           <button onClick={loginClick} className="btn btn-primary">Log In</button>

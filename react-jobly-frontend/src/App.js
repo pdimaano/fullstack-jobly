@@ -15,7 +15,7 @@ import userInfoContext from "./userInfoContext";
  *
  *  State: userInfo object {
  *                          user: {username, firstName, lastName, email},
- *                          loggedIn: true
+ *                          hasLoaded: true
  *                          },
  *         token
  *
@@ -35,7 +35,7 @@ function App() {
       lastName: null,
       email: null
     },
-    loggedIn: false
+    hasLoaded: false
   });
 
   const [token, setToken] = useState(defaultToken);
@@ -51,22 +51,22 @@ function App() {
               lastName: null,
               email: null
             },
-            loggedIn: false //TODO: hasLoaded
+            hasLoaded: true
           });
         } else {
           JoblyApi.token = token;
           const decoded = jwt_decode(token);
           console.log("Use EFFECT decoded: ", decoded);
           try {
-            userInfo.user = await JoblyApi.getUser(decoded.username); //TODO: change userInfo.user to a variable
+            const currUser = await JoblyApi.getUser(decoded.username);
             setUserInfo({
               user: {
-                username: userInfo.user.username,
-                firstName: userInfo.user.firstName,
-                lastName: userInfo.user.lastName,
-                email: userInfo.user.email
+                username: currUser.user.username,
+                firstName: currUser.user.firstName,
+                lastName: currUser.user.lastName,
+                email: currUser.user.email
               },
-              loggedIn: true
+              hasLoaded: true
             });
             localStorage.setItem("token", token);
           } catch (err) {
@@ -78,7 +78,7 @@ function App() {
                 lastName: null,
                 email: null
               },
-              loggedIn: false
+              hasLoaded: true
             });
           }
         }
@@ -147,7 +147,10 @@ function App() {
     console.log("LOGOUT")
   }
 
-  if (token && userInfo.loggedIn === false) return (<i>...Loading</i>) //TODO: check for hasLoaded === false (default)
+  if (userInfo.hasLoaded === false) {
+    console.log('LOADING');
+    return (<i>...Loading</i>)
+  }
 
   return (
     <div className="App">

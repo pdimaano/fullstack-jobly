@@ -20,12 +20,11 @@ import userInfoContext from './userInfoContext';
  *  Render App -> RoutesList
  */
 
-//TODO: Should add ternary to say which routes to render based on if signed in or not
 
 function RoutesList({userLogin, userSignup, userUpdate}) {
   const userInfo = useContext(userInfoContext);
 
-  if (!userInfo.loggedIn) {
+  if (!userInfo.user.username) {
     return (
     <Routes>
       <Route path="/" element={<HomePage />} />

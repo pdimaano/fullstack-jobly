@@ -20,8 +20,8 @@ function LoginForm({ login }) {
   console.debug("LoginForm");
   const navigate = useNavigate();
   const defaultFormData = {
-    username: "testOne",
-    password: "testword",
+    username: "",
+    password: "",
   };
 
   const [formData, setFormData] = useState(defaultFormData);

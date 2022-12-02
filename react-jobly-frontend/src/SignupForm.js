@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Alert from "./Alert";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import "./SignupForm.css";
 
 /**
@@ -20,11 +20,11 @@ function SignupForm({ signup }) {
   const navigate = useNavigate();
 
   const defaultFormData = {
-    username: "testOne",
-    password: "testword",
-    firstName: "test",
-    lastName: "One",
-    email: "test@testing.com",
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
   };
 
   const [formData, setFormData] = useState(defaultFormData);

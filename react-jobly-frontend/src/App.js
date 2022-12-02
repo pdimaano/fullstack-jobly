@@ -30,6 +30,7 @@ function App() {
 
   //TODO: USE EFFECT TO TRIGGER GETUSER ON TOKEN CHANGE
   // TODO: npm install jwt-decode (import decode from jwt-decode)
+  // TODO: write logout function
 
   console.log('userInfo: ', userInfo);
 

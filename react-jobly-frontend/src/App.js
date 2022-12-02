@@ -13,7 +13,10 @@ import userInfoContext from "./userInfoContext";
  *
  *  Props: None
  *
- *  State: userInfo object {username, firstName, lastName, email},
+ *  State: userInfo object {
+ *                          user: {username, firstName, lastName, email},
+ *                          loggedIn: true
+ *                          },
  *         token
  *
  *  App -> Navigation & RoutesList
@@ -22,34 +25,57 @@ import userInfoContext from "./userInfoContext";
 
 function App() {
   console.debug("App");
-  const [userInfo, setUserInfo] = useState({ //TODO: think about adding isLoading state
-    username: null,
-    firstName: null,
-    lastName: null,
-    email: null,
+
+  const [userInfo, setUserInfo] = useState({
+    user: {
+      username: null,
+      firstName: null,
+      lastName: null,
+      email: null
+    },
+    loggedIn: false
   });
   const [token, setToken] = useState(null);
 
   useEffect(
     function getUserInfo() {
       async function getUserApi() {
-        if (token === null) { // check for token not null
+        if (!token) {
           setUserInfo({
-            username: null,
-            firstName: null,
-            lastName: null,
-            email: null,
+            user: {
+              username: null,
+              firstName: null,
+              lastName: null,
+              email: null
+            },
+            loggedIn: false
           });
-        } else { // put a try/catch
+        } else {
           const decoded = jwt_decode(token);
           console.log(decoded);
-          let userInfo = await JoblyApi.getUser(decoded.username);
-          setUserInfo({
-            username: userInfo.username,
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
-            email: userInfo.email,
-          });
+          try {
+            userInfo.user = await JoblyApi.getUser(decoded.username);
+            setUserInfo({
+              user: {
+                username: userInfo.user.username,
+                firstName: userInfo.user.firstName,
+                lastName: userInfo.user.lastName,
+                email: userInfo.user.email
+              },
+              loggedIn: true
+            });
+          } catch (err) {
+            setToken(null)
+            setUserInfo({
+              user: {
+                username: null,
+                firstName: null,
+                lastName: null,
+                email: null
+              },
+              loggedIn: false
+            });
+          }
         }
       }
       getUserApi();
@@ -59,34 +85,63 @@ function App() {
 
   console.log("userInfo: ", userInfo);
 
-  //TODO: NEED DOCSTRINGS
+  /** Signs user up and sets token
+   *  Input: userInfo - Object
+   *  {username, password, firstName, lastName, email}
+   */
   async function userSignup(userInfo) {
     let token = await JoblyApi.userRegister(userInfo);
     console.log("SIGNUP Token: ", token);
     setToken(token);
   }
 
+  /** Logs user in and sets token
+   *  Input: userInfo - Object
+   *  {username, password}
+   */
   async function userLogin(userInfo) {
     let token = await JoblyApi.userLogin(userInfo);
     setToken(token);
   }
 
-  async function userProfile(userInfo) { //TODO: change userProfile name to userUpdate or something
-    let updatedUser = await JoblyApi.userProfile(userInfo); //TODO: same
-    console.log("LOGIN Token: ", updatedUser); //TODO: fix console log string
-    setUserInfo({
-      username: updatedUser.username,
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      email: updatedUser.email,
-    });
+  /** Updates current user information and sets userInfo
+   *
+   *  Input: userInfo - Object
+   *  {username, firstName, lastName, email}
+   */
+  async function userUpdate(userInfo) {
+    let updatedUser = await JoblyApi.userUpdate(userInfo);
+    console.log("Updated User: ", updatedUser);
+    setUserInfo(u => (
+      {
+        ...u,
+        user: {
+          username: updatedUser.username,
+          firstName: updatedUser.firstName,
+          lastName: updatedUser.lastName,
+          email: updatedUser.email
+        }})
+    );
   }
 
+  /** Logs current user out
+   * sets token and userinfo to null
+   */
   function userLogout() {
     setToken(null);
-    //TODO: set currentUser to null here
+    setUserInfo({
+      user: {
+        username: null,
+        firstName: null,
+        lastName: null,
+        email: null
+      },
+      loggedIn: false
+    });
     console.log("LOGOUT")
   }
+
+  // if (userInfo.loggedIn === false) return (<i>...Loading</i>)
 
   return (
     <div className="App">
@@ -96,7 +151,7 @@ function App() {
           <RoutesList
             userSignup={userSignup}
             userLogin={userLogin}
-            userProfile={userProfile}
+            userUpdate={userUpdate}
           />
         </BrowserRouter>
       </userInfoContext.Provider>

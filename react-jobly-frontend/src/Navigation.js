@@ -25,7 +25,7 @@ function Navigation({userLogout}) {
       </div>
 
       {
-        userInfo.username === null
+        !userInfo.loggedIn
           ? <div className="Navigation-right">
               <NavLink className="Navigation-Link-Signup" to='/signup'>
                 Signup
@@ -34,7 +34,7 @@ function Navigation({userLogout}) {
                 Login
               </NavLink>
             </div>
-            
+
           : <div className="Navigation-right">
               <NavLink className="Navigation-Link-Companies" to='/companies'>
                 Companies
@@ -46,7 +46,7 @@ function Navigation({userLogout}) {
                 Profile
               </NavLink>
               <NavLink className="Navigation-Link-Logout" to='/' onClick={userLogout}>
-                Logout {userInfo.username}
+                Logout {userInfo.user.username}
               </NavLink>
             </div>
       }

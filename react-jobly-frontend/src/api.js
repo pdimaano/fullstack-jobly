@@ -120,7 +120,7 @@ class JoblyApi {
    *  Output: { username, firstName, lastName, email, isAdmin }
    */
 
-  static async userProfile(data) {
+  static async userUpdate(data) {
     const {username, ...otherData} = data;
 
     let res = await this.request(`users/${username}`, otherData, "patch");

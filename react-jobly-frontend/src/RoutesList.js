@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./HomePage";
 import CompanyList from "./CompanyList";
@@ -7,6 +7,8 @@ import JobList from "./JobList";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";
+import userInfoContext from './userInfoContext';
+
 
 /**
  *  Create routes for application
@@ -20,19 +22,32 @@ import ProfileForm from "./ProfileForm";
 
 //TODO: Should add ternary to say which routes to render based on if signed in or not
 
-function RoutesList({userLogin, userSignup, userProfile}) {
-  return (
+function RoutesList({userLogin, userSignup, userUpdate}) {
+  const userInfo = useContext(userInfoContext);
+
+  if (!userInfo.loggedIn) {
+    return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginForm onSubmission={userLogin} />}/>
-      <Route path="/signup" element={<SignupForm onSubmission={userSignup}/>} />
-      <Route path="/profile" element={<ProfileForm onSubmission={userProfile}/>} />
-      <Route path="/companies" element={<CompanyList />} />
-      <Route path="/companies/:handle" element={<CompanyDetail />} />
-      <Route path="/jobs" element={<JobList />} />
+      <Route path="/login" element={<LoginForm login={userLogin} />}/>
+      <Route path="/signup" element={<SignupForm signup={userSignup}/>} />
       <Route path="*" element={<Navigate to="/"/>} />
     </Routes>
-  );
+    )
+  } else {
+    return (
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginForm login={userLogin} />}/>
+        <Route path="/signup" element={<SignupForm signup={userSignup}/>} />
+        <Route path="/profile" element={<ProfileForm update={userUpdate}/>} />
+        <Route path="/companies" element={<CompanyList />} />
+        <Route path="/companies/:handle" element={<CompanyDetail />} />
+        <Route path="/jobs" element={<JobList />} />
+        <Route path="*" element={<Navigate to="/"/>} />
+      </Routes>
+    );
+  }
 }
 
 export default RoutesList;

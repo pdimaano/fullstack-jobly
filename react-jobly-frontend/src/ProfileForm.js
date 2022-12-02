@@ -15,16 +15,15 @@ import userInfoContext from './userInfoContext';
  *   App -> ProfileForm
  */
 
-function ProfileForm({ onSubmission }) { //TODO: change name
+function ProfileForm({ update }) {
   console.debug("ProfileForm");
-  console.log('USERINFO', userInfo);
 
   const userInfo = useContext(userInfoContext);
   const defaultFormData = {
-    username: userInfo.username,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    email: userInfo.email,
+    username: userInfo.user.username,
+    firstName: userInfo.user.firstName,
+    lastName: userInfo.user.lastName,
+    email: userInfo.user.email,
   };
 
   const [formData, setFormData] = useState(defaultFormData);
@@ -54,7 +53,7 @@ function ProfileForm({ onSubmission }) { //TODO: change name
     e.preventDefault();
     try {
       console.log("IN TRY")
-      await onSubmission(formData);
+      await update(formData);
       setSuccess(true);
     } catch (error) {
       console.log("ERROR!", error)

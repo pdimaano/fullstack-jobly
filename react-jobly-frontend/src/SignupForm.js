@@ -15,7 +15,7 @@ import { Navigate, useNavigate } from "react-router-dom";
  *   App -> SignupForm
  */
 
-function SignupForm({ onSubmission }) { //TODO: change name
+function SignupForm({ signup }) {
   console.debug("SignupForm");
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ function SignupForm({ onSubmission }) { //TODO: change name
     e.preventDefault();
     try {
       console.log("IN TRY")
-      await onSubmission(formData);
+      await signup(formData);
       setFormData(defaultFormData);
       navigate("/");
     } catch (error) {

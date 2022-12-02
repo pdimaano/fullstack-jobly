@@ -22,7 +22,7 @@ function HomePage() {
     <div className="HomePage">
       <div>
         <h1>Jobly</h1>
-        {userInfo.firstName && <p>Welcome {userInfo.firstName}! </p>}
+        {userInfo.user.firstName && <p>Welcome {userInfo.user.firstName}! </p>}
         <p>Find your dream job on a Korean beach!</p>
       </div>
     </div>

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
  *   App -> LoginForm
  */
 
-function LoginForm({ onSubmission }) { //TODO: change name to login
+function LoginForm({ login }) {
   //update function name to userLogin
   console.debug("LoginForm");
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ function LoginForm({ onSubmission }) { //TODO: change name to login
     e.preventDefault();
     try {
       console.log("IN TRY");
-      await onSubmission(formData);
+      await login(formData);
       setFormData(defaultFormData);
       navigate("/");
     } catch (error) {

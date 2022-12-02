@@ -4,9 +4,9 @@ import HomePage from "./HomePage";
 import CompanyList from "./CompanyList";
 import CompanyDetail from "./CompanyDetail";
 import JobList from "./JobList";
-// import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-// import ProfileForm from "./ProfileForm";
+import ProfileForm from "./ProfileForm";
 
 /**
  *  Create routes for application
@@ -24,9 +24,9 @@ function RoutesList({userLogin, userSignup, userProfile}) {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      {/* <Route path="/login" element={<LoginForm onSubmission={userLogin} />}/> */}
+      <Route path="/login" element={<LoginForm onSubmission={userLogin} />}/>
       <Route path="/signup" element={<SignupForm onSubmission={userSignup}/>} />
-      {/* <Route path="/profile" element={<ProfileForm onSubmission={userProfile}/>} /> */}
+      <Route path="/profile" element={<ProfileForm onSubmission={userProfile}/>} />
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/companies/:handle" element={<CompanyDetail />} />
       <Route path="/jobs" element={<JobList />} />

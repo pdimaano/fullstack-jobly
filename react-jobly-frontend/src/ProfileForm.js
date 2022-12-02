@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Alert from './Alert';
-// import "./SignupForm.css";
+// import "./ProfileForm.css";
+import userInfoContext from './userInfoContext';
 
 /**
  * Renders form
@@ -11,18 +12,19 @@ import Alert from './Alert';
  *        error - Array
  *
  * Render:
- *   App -> SignupForm
+ *   App -> ProfileForm
  */
 
-function SignupForm({ onSubmission }) {
-  console.debug("SignupForm");
-
+function ProfileForm({ onSubmission }) {
+  console.debug("ProfileForm");
+  const userInfo = useContext(userInfoContext);
+  console.log('USERINFO', userInfo);
+  
   const defaultFormData = {
-    username: "testOne",
-    password: "testword",
-    firstName: "test",
-    lastName: "One",
-    email: "test@testing.com",
+    username: userInfo.username,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
   };
 
   const [formData, setFormData] = useState(defaultFormData);
@@ -61,23 +63,13 @@ function SignupForm({ onSubmission }) {
   }
 
   return (
-    <form className="SignupForm container" onSubmit={onSubmit}>
+    <form className="ProfileForm container" onSubmit={onSubmit}>
       <div className="mb-3">
         <label className="form-label">Username</label>
         <input
           name="username"
           className="form-control"
           value={formData.username}
-          onChange={onChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Password</label>
-        <input
-          name="password"
-          className="form-control"
-          type="password"
-          value={formData.password}
           onChange={onChange}
         />
       </div>
@@ -120,4 +112,4 @@ function SignupForm({ onSubmission }) {
   );
 }
 
-export default SignupForm;
+export default ProfileForm;

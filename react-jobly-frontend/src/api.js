@@ -93,12 +93,55 @@ class JoblyApi {
    */
 
   static async userRegister(data) {
-    console.log("USER REGISTER")
     let res = await this.request(`auth/register`, data, "post");
     console.log(res);
     this.token = res.token;
     return this.token;
   }
+
+  /** Authenticates/Logins user
+   *
+   *  Input: data = {username, password};
+   *
+   *  Output: token
+   */
+
+  static async userLogin(data) {
+    let res = await this.request(`auth/token`, data, "post");
+    console.log(res);
+    this.token = res.token;
+    return this.token;
+  }
+
+  /** Updates user info
+   *
+   *  Input: data = {username, firstName, lastName, email};
+   *
+   *  Output: { username, firstName, lastName, email, isAdmin }
+   */
+
+  static async userProfile(data) {
+    const {username, ...otherData} = data;
+
+    let res = await this.request(`users/${username}`, otherData, "patch");
+    console.log('userProfile: ', res);
+    return res.user;
+  }
+
+ /** Gets a specific user
+   *
+   *  Input: username
+   *
+   *  Output: { username, firstName, lastName, email, isAdmin, jobs }
+   *          where jobs is { id, title, companyHandle, companyName, state }
+   */
+
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    console.log(res);
+    return res.user;
+  }
+
 }
 
 export default JoblyApi;

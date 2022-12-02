@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Alert from './Alert';
-// import "./SignupForm.css";
+// import "./LoginForm.css";
 
 /**
  * Renders form
@@ -11,24 +11,22 @@ import Alert from './Alert';
  *        error - Array
  *
  * Render:
- *   App -> SignupForm
+ *   App -> LoginForm
  */
 
-function SignupForm({ onSubmission }) {
-  console.debug("SignupForm");
+function LoginForm({ onSubmission }) { //update function name to userLogin
+  console.debug("LoginForm");
 
   const defaultFormData = {
     username: "testOne",
-    password: "testword",
-    firstName: "test",
-    lastName: "One",
-    email: "test@testing.com",
+    password: "testword"
   };
 
   const [formData, setFormData] = useState(defaultFormData);
   const [errors, setErrors] = useState([])
 
   console.log('formData: ', formData, 'error: ', errors);
+
   /**
    * Updates form input
    *
@@ -61,7 +59,7 @@ function SignupForm({ onSubmission }) {
   }
 
   return (
-    <form className="SignupForm container" onSubmit={onSubmit}>
+    <form className="LoginForm container" onSubmit={onSubmit}>
       <div className="mb-3">
         <label className="form-label">Username</label>
         <input
@@ -81,33 +79,6 @@ function SignupForm({ onSubmission }) {
           onChange={onChange}
         />
       </div>
-      <div className="mb-3">
-        <label className="form-label">First Name</label>
-        <input
-          name="firstName"
-          className="form-control"
-          value={formData.firstName}
-          onChange={onChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Last Name</label>
-        <input
-          name="lastName"
-          className="form-control"
-          value={formData.lastName}
-          onChange={onChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Email</label>
-        <input
-          name="email"
-          className="form-control"
-          value={formData.email}
-          onChange={onChange}
-        />
-      </div>
       {
         errors.length !== 0 ?
         errors.map((e, idx) => (
@@ -120,4 +91,4 @@ function SignupForm({ onSubmission }) {
   );
 }
 
-export default SignupForm;
+export default LoginForm;
